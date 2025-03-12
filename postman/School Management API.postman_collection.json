@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "c66dd634-3b24-477c-952b-dda743d71c95",
+		"name": "School Management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43027775"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Greenwood High\",\r\n    \"address\": \"123 Main St, NY\",\r\n    \"latitude\": 40.7128,\r\n    \"longitude\": -74.006\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/addSchool\r\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"addSchool\r\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/listSchools?latitude=40.7128&longitude=-74.006\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"listSchools"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "40.7128"
+						},
+						{
+							"key": "longitude",
+							"value": "-74.006\n"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
