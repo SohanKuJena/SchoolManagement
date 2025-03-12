@@ -13,7 +13,8 @@ const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 3306
 });
 
 db.connect(err => {
@@ -98,15 +99,20 @@ app.get('/listSchools', (req, res) => {
         const userLon = parseFloat(longitude);
 
         const sortedSchools = results.map(school => {
-            const distance = haversineDistance(userLat, userLon, school.latitude, school.longitude);
+            const distance = haversineDistance(
+                userLat, 
+                userLon, 
+                parseFloat(school.latitude),  // Convert DB value to number
+                parseFloat(school.longitude)  // Convert DB value to number
+            );
             console.log(`Distance to ${school.name}: ${distance} km`);
             return { ...school, distance };
         }).sort((a, b) => a.distance - b.distance);
 
-
         res.json(sortedSchools);
     });
 });
+
 
 // Catch-all route to help debug unhandled endpoints
 app.use((req, res) => {
@@ -115,7 +121,7 @@ app.use((req, res) => {
 });
 
 // Start Server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.DB_PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
